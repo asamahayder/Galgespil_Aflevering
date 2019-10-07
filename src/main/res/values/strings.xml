@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Galgespil_Aflevering</string>
+    <string name="game_title">HangMan</string>
+    <string name="easy_mode">Easy</string>
+    <string name="standard_mode">Standard</string>
+    <string name="hard_mode">Hard</string>
+    <string name="gætPåEtBogstav">Gæt på et bogstav</string>
+    <string name="submit">Submit</string>
+    <string name="brugteBogstaver">Brugte bogstaver</string>
+    <string name="lifes">Number of lifes:</string>
+</resources>
