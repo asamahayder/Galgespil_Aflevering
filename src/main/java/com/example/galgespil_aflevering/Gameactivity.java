@@ -3,15 +3,22 @@ package com.example.galgespil_aflevering;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class Gameactivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,6 +28,11 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
     TextView brugteBogstaver;
     TextView numberOfLives;
     ImageView image;
+    LinearLayout linearLayout1;
+    LinearLayout linearLayout2;
+    LinearLayout linearLayout3;
+    LinearLayout linearLayout4;
+
     Galgelogik spil;
     EditText gætBogstavInputFelt;
     Button submit, buttonA, buttonB, buttonC, buttonD, buttonE, buttonF, buttonG, buttonH, buttonI, buttonJ, buttonK, buttonL, buttonM, buttonN, buttonO, buttonP, buttonQ, buttonR, buttonS, buttonT, buttonU, buttonV, buttonW, buttonX, buttonY, buttonZ, buttonÆ, buttonØ, buttonÅ;
@@ -39,13 +51,76 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
         brugteBogstaver = findViewById(R.id.brugteBogstaver);
         image = findViewById(R.id.grafik);
         numberOfLives = findViewById(R.id.numberOfLives);
+        linearLayout1 = findViewById(R.id.linearLayout1);
+        linearLayout2 = findViewById(R.id.linearLayout2);
+        linearLayout3 = findViewById(R.id.linearLayout3);
 
-        //TODO skulle dette med eller ej?
+        //TODO ting at spørge hjælpelære om: weightsum, clickevent, hentfraregneark
         submit.setVisibility(View.GONE);
         gætBogstavInputFelt.setVisibility(View.GONE);
         brugteBogstaver.setVisibility(View.GONE);
 
-        buttonA = findViewById(R.id.buttonA);
+        for (int i = 0; i < 26; i++) {
+            //Button button = new Button(this);
+            final TextView button = new TextView(this);
+            button.setBackgroundResource(R.drawable.rounded_buttons);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleButtonClick(button);
+                }
+            });
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
+            button.setTextColor(Color.parseColor("yellow"));
+            button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.weight = 1;
+            params.setMargins(6,6,6,6);
+            button.setPadding(10,10,10,10);
+            button.setLayoutParams(params);
+
+            //button.setWidth((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics()));
+            //button.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            switch (i){
+                case 0: button.setText("Q"); break;
+                case 1: button.setText("W"); break;
+                case 2: button.setText("E"); break;
+                case 3: button.setText("R"); break;
+                case 4: button.setText("T"); break;
+                case 5: button.setText("Y"); break;
+                case 6: button.setText("U"); break;
+                case 7: button.setText("I"); break;
+                case 8: button.setText("O"); break;
+                case 9: button.setText("P"); break;
+                case 10: button.setText("A"); break;
+                case 11: button.setText("S"); break;
+                case 12: button.setText("D"); break;
+                case 13: button.setText("F"); break;
+                case 14: button.setText("G"); break;
+                case 15: button.setText("H"); break;
+                case 16: button.setText("J"); break;
+                case 17: button.setText("K"); break;
+                case 18: button.setText("L"); break;
+                case 19: button.setText("Z"); break;
+                case 20: button.setText("X"); break;
+                case 21: button.setText("C"); break;
+                case 22: button.setText("V"); break;
+                case 23: button.setText("B"); break;
+                case 24: button.setText("N"); break;
+                case 25: button.setText("M"); break;
+
+            }
+            if (i < 10){
+                linearLayout1.addView(button);
+            }else if (i < 19){
+                linearLayout2.addView(button);
+            }else{
+                linearLayout3.addView(button);
+            }
+        }
+
+//TODO overvej forloops, programatisk, modulo, gravity, weightsum, arrays, ingen vertikal
+        /*buttonA = findViewById(R.id.buttonA);
         buttonB = findViewById(R.id.buttonB);
         buttonC = findViewById(R.id.buttonC);
         buttonD = findViewById(R.id.buttonD);
@@ -70,15 +145,14 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
         buttonW = findViewById(R.id.buttonW);
         buttonX = findViewById(R.id.buttonX);
         buttonY = findViewById(R.id.buttonY);
-        buttonZ = findViewById(R.id.buttonZ);
-        buttonÆ = findViewById(R.id.buttonÆ);
-        buttonØ = findViewById(R.id.buttonØ);
-        buttonÅ = findViewById(R.id.buttonÅ);
+        buttonZ = findViewById(R.id.buttonZ);*/
+
 
 
         gameMode = findViewById(R.id.chosenMode);
+
         if (mode.equals("1")){
-            gameMode.setText(R.string.easy_mode);
+            //gameMode.setText(R.string.easy_mode);
             //HentOrdFraArkTask hentOrdFraArkTask = new HentOrdFraArkTask("1", spil);
             //hentOrdFraArkTask.execute();
             spil.hentOrdFraKode("1");
@@ -98,7 +172,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
         numberOfLives.setText("7");
         synligtOrd.setText(spil.getSynligtOrd());
         submit.setOnClickListener(this);
-        buttonA.setOnClickListener(this);
+        /*buttonA.setOnClickListener(this);
         buttonB.setOnClickListener(this);
         buttonC.setOnClickListener(this);
         buttonD.setOnClickListener(this);
@@ -126,7 +200,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
         buttonZ.setOnClickListener(this);
         buttonÆ.setOnClickListener(this);
         buttonØ.setOnClickListener(this);
-        buttonÅ.setOnClickListener(this);
+        buttonÅ.setOnClickListener(this);*/
     }
 
     /*@Override
@@ -141,7 +215,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
     //jeg kunne gøre dette med meget mindre kode vha et textfield, og en submit button. Og faktisk har jeg allerede skrevet kode for dette. Men denne måde ser bare mere cool ud.
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        /*switch (v.getId()){
             case R.id.buttonA:
                 handleGuessV2(buttonA.getText().toString().toLowerCase());
                 buttonA.getBackground().setColorFilter(0xFF808080, PorterDuff.Mode.MULTIPLY);
@@ -259,6 +333,22 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
                 buttonÅ.getBackground().setColorFilter(0xFF808080, PorterDuff.Mode.MULTIPLY);
                 break;
 
+        }*/
+        handleLifePoints();
+        handleGameFinish();
+    }
+
+    public void handleButtonClick(TextView button){
+        String guess = button.getText().toString().toLowerCase();
+        handleGuessV2(guess);
+        if (spil.erSidsteBogstavKorrekt()){
+            button.setBackgroundResource(0);
+            //button.setBackgroundColor(Color.parseColor("transparent"));
+            button.setTextColor(Color.parseColor("green"));
+        }else{
+            button.setBackgroundResource(0);
+            //button.setBackgroundColor(Color.parseColor("transparent"));
+            button.setTextColor(Color.parseColor("red"));
         }
         handleLifePoints();
         handleGameFinish();
@@ -274,21 +364,22 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
 
     public void handleLifePoints(){
         if (!spil.erSidsteBogstavKorrekt()){
-            int numberOfLivesLeft = 7-spil.getAntalForkerteBogstaver();
+            int numberOfLivesLeft = 6-spil.getAntalForkerteBogstaver();
             String NOLstring = Integer.toString(numberOfLivesLeft);
             numberOfLives.setText(NOLstring);
             switch (spil.getAntalForkerteBogstaver()){
-                case 1: image.setImageResource(R.drawable.forkert2);
+                case 1: image.setImageResource(R.drawable.forkert1);
                     break;
-                case 2: image.setImageResource(R.drawable.forkert3);
+                case 2: image.setImageResource(R.drawable.forkert2);
                     break;
-                case 3: image.setImageResource(R.drawable.forkert4);
+                case 3: image.setImageResource(R.drawable.forkert3);
                     break;
-                case 4:
-                case 5:
-                case 6: image.setImageResource(R.drawable.forkert5);
+                case 4: image.setImageResource(R.drawable.forkert4);
                     break;
-                case 7: image.setImageResource(R.drawable.forkert6);
+                case 5: image.setImageResource(R.drawable.forkert5);
+                    break;
+                case 6: image.setImageResource(R.drawable.forkert6);
+                    break;
             }
         }
     }
