@@ -2,6 +2,8 @@ package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,17 +41,23 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         }else {
             status.setText(R.string.ErrorAtStatus);
         }
-        score.setText(scoreString);
+        score.setText("score: " + scoreString);
         word.setText(wordString);
 
         playAgain.setOnClickListener(this);
+        wiki.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         if (v == playAgain){
-            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (v == wiki){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/" + word.getText().toString()));
+            startActivity(intent);
         }
     }
 }

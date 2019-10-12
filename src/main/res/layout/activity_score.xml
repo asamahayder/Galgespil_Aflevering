@@ -28,7 +28,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/dk_crayon_crumble"
             android:text="you won"
-            android:textSize="50sp" />
+            android:textSize="80sp" />
 
         <TextView
             android:id="@+id/wordText1"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/dk_crayon_crumble"
             android:text="the word was: "
-            android:textSize="40sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/wordText2"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/dk_crayon_crumble"
             android:text="XXXXXX"
-            android:textSize="40sp" />
+            android:textSize="50sp" />
 
         <TextView
             android:id="@+id/scoreText"
@@ -53,7 +53,7 @@
             android:layout_margin="10dp"
             android:fontFamily="@font/dk_crayon_crumble"
             android:text="score:"
-            android:textSize="70sp" />
+            android:textSize="60sp" />
 
         <ImageView
             android:id="@+id/stickmanImage"
