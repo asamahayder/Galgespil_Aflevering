@@ -4,8 +4,12 @@
     <string name="easy_mode">Easy</string>
     <string name="standard_mode">Standard</string>
     <string name="hard_mode">Hard</string>
-    <string name="gætPåEtBogstav">Gæt på et bogstav</string>
-    <string name="submit">Submit</string>
-    <string name="brugteBogstaver">Brugte bogstaver</string>
-    <string name="lifes">Number of lifes:</string>
+    <string name="couldNotFetchWord">Could not fetch the word:</string>
+    <string name="ErrorAtStatus">No win/lose</string>
+    <string name="ventVenligst">Vent venligst</string>
+    <string name="statusLost">YOU DIED</string>
+    <string name="statusWon">You won!</string>
+
+
+
 </resources>
