@@ -204,6 +204,33 @@ public class Galgelogik {
     nulstil();
   }
 
+  public void hentOrdFraEgetRegneark(String sværhedsgrader) throws Exception {
+    String id = "1TJDcXzb43c9n-Qb2nxw9PHmKPPV_2R86D7E7ss2lD4g";
+
+    System.out.println("Henter data som kommasepareret CSV fra regnearket https://docs.google.com/spreadsheets/d/"+id+"/edit?usp=sharing");
+
+    String data = hentUrl("https://docs.google.com/spreadsheets/d/" + id + "/export?format=csv&id=" + id);
+    int linjeNr = 0;
+
+    muligeOrd.clear();
+    for (String linje : data.split("\n")) {
+      if (linjeNr<20) System.out.println("linje = " + linje); // udskriv de første 20 linjer
+      if (linjeNr++ < 1 ) continue; // Spring første linje med kolonnenavnene over
+      String[] felter = linje.split(",", -1);// -1 er for at beholde tomme indgange, f.eks. bliver ",,," splittet i et array med 4 tomme strenge
+      String sværhedsgrad = felter[0].trim();
+      String ordet = felter[1].trim().toLowerCase();
+      if (ordet.isEmpty()) continue; // spring over linjer med tomme ord
+      if (sværhedsgrad.isEmpty()) continue;
+      if (!sværhedsgrader.contains(sværhedsgrad)) continue; // filtrér på sværhedsgrader
+      muligeOrd.add(ordet);
+    }
+
+    System.out.println("muligeOrd = " + muligeOrd);
+    nulstil();
+  }
+
+
+
   public void hentOrdFraKode(String sværhedsgrad){
     ArrayList<String> list = new ArrayList<>();
     if (sværhedsgrad.equals("1")){

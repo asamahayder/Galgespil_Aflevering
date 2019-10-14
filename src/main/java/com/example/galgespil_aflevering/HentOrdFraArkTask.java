@@ -49,7 +49,7 @@ public class HentOrdFraArkTask extends AsyncTask<String, String, Exception> {
     @Override
     protected Exception doInBackground(String... strings) {
         try {
-            spil.hentOrdFraRegneark(strings[0]);
+            spil.hentOrdFraEgetRegneark(strings[0]);
             spil.nulstil();
             System.out.println(spil.getMuligeOrd());
         } catch (Exception e) {

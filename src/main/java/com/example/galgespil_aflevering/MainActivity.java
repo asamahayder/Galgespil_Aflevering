@@ -50,7 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("mode", "3");
             startActivity(intent);
         }else if (v == gitHubImage){
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("github.com"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/asamahayder/Galgespil_Aflevering"));
+            startActivity(intent);
+        }else if (v == questionImage){
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
 

@@ -9,7 +9,13 @@
     <string name="ventVenligst">Vent venligst</string>
     <string name="statusLost">YOU DIED</string>
     <string name="statusWon">You won!</string>
-
+    <string name="aboutTitle">About</string>
+    <string name="theGame">The Game:</string>
+    <string name="theGameExplanation">The game HangMan is about guessing a random selected word by selecting one character at a time. If the guess is wrong, you lose 1 out of 6 lives. When all lives have been lost, the man will be hanged. A score will be calculated, based on the word and the number of lives left, when the game finishes.</string>
+    <string name="DevTitle">Developer:</string>
+    <string name="DevName">Asama Hayder s185099</string>
+    <string name="course">created for the course: 62550 - fall 2019 on DTU</string>
+    <string name="goBack"> Return</string>
 
 
 </resources>
