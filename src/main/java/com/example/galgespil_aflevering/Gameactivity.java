@@ -102,15 +102,26 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
 
         gameMode = findViewById(R.id.chosenMode);
 
-        if (mode.equals("1")){
-            gameMode.setText(R.string.easy_mode);
-            new HentOrdFraArkTask(this, spil).execute("1");
-        }else if (mode.equals("2")){
-            gameMode.setText(R.string.standard_mode);
-            new HentOrdFraArkTask(this, spil).execute("2");
-        }else{
-            gameMode.setText(R.string.hard_mode);
-            new HentOrdFraArkTask(this, spil).execute("3");
+        if (mode.equals("animals")){
+            gameMode.setText(R.string.animals);
+            new HentOrdFraArkTask(this, spil).execute("animals");
+        }else if (mode.equals("cars")){
+            gameMode.setText(R.string.cars);
+            new HentOrdFraArkTask(this, spil).execute("cars");
+        }else if(mode.equals("countries")){
+            gameMode.setText(R.string.countries);
+            new HentOrdFraArkTask(this, spil).execute("countries");
+        }
+        else if(mode.equals("movies")){
+            gameMode.setText(R.string.movies);
+            new HentOrdFraArkTask(this, spil).execute("movies");
+        }
+        else if(mode.equals("games")){
+            gameMode.setText(R.string.games);
+            new HentOrdFraArkTask(this, spil).execute("games");
+        }else if(mode.equals("foods")){
+            gameMode.setText(R.string.food);
+            new HentOrdFraArkTask(this, spil).execute("foods");
         }
     }
 

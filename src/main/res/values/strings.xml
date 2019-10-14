@@ -16,6 +16,11 @@
     <string name="DevName">Asama Hayder s185099</string>
     <string name="course">created for the course: 62550 - fall 2019 on DTU</string>
     <string name="goBack"> Return</string>
-
+    <string name="animals">Animals</string>
+    <string name="cars">Cars</string>
+    <string name="countries">Countries</string>
+    <string name="movies">Movies</string>
+    <string name="games">Games</string>
+    <string name="food">Food</string>
 
 </resources>

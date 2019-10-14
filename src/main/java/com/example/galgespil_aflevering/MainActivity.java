@@ -11,43 +11,65 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView easyMode;
-    TextView standardMode;
-    TextView hardMode;
     ImageView gitHubImage;
     ImageView questionImage;
+    ImageView animalImage;
+    ImageView carImage;
+    ImageView countryImage;
+    ImageView movieImage;
+    ImageView gameImage;
+    ImageView foodImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        easyMode = findViewById(R.id.easyMode);
-        standardMode = findViewById(R.id.standardMode);
-        hardMode = findViewById(R.id.hardMode);
+
         gitHubImage = findViewById(R.id.gitHubImage);
         questionImage = findViewById(R.id.questionImage);
+        animalImage = findViewById(R.id.animalImage);
+        carImage = findViewById(R.id.carImage);
+        countryImage = findViewById(R.id.countryImage);
+        movieImage = findViewById(R.id.movieImage);
+        gameImage = findViewById(R.id.gameImage);
+        foodImage = findViewById(R.id.foodImage);
 
-        easyMode.setOnClickListener(this);
-        standardMode.setOnClickListener(this);
-        hardMode.setOnClickListener(this);
         gitHubImage.setOnClickListener(this);
         questionImage.setOnClickListener(this);
+        animalImage.setOnClickListener(this);
+        carImage.setOnClickListener(this);
+        countryImage.setOnClickListener(this);
+        movieImage.setOnClickListener(this);
+        gameImage.setOnClickListener(this);
+        foodImage.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == easyMode){
+        if (v == animalImage){
             Intent intent = new Intent(this, Gameactivity.class);
-            intent.putExtra("mode", "1");
+            intent.putExtra("mode", "animals");
             startActivity(intent);
-        }else if (v == standardMode){
+        }else if (v == carImage){
             Intent intent = new Intent(this, Gameactivity.class);
-            intent.putExtra("mode", "2");
+            intent.putExtra("mode", "cars");
             startActivity(intent);
-        }else if (v == hardMode){
+        }else if (v == countryImage){
             Intent intent = new Intent(this, Gameactivity.class);
-            intent.putExtra("mode", "3");
+            intent.putExtra("mode", "countries");
+            startActivity(intent);
+        }else if(v == movieImage){
+            Intent intent = new Intent(this, Gameactivity.class);
+            intent.putExtra("mode", "movies");
+            startActivity(intent);
+        }else if(v == gameImage){
+            Intent intent = new Intent(this, Gameactivity.class);
+            intent.putExtra("mode", "games");
+            startActivity(intent);
+        }else if(v == foodImage){
+            Intent intent = new Intent(this, Gameactivity.class);
+            intent.putExtra("mode", "foods");
             startActivity(intent);
         }else if (v == gitHubImage){
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/asamahayder/Galgespil_Aflevering"));
