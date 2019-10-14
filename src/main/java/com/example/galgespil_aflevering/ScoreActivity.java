@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
@@ -16,6 +17,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     TextView word;
     Button wiki;
     Button playAgain;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         word = findViewById(R.id.wordText2);
         wiki = findViewById(R.id.wikipediaButton);
         playAgain = findViewById(R.id.playAgainButton);
+        imageView = findViewById(R.id.stickmanImage);
 
         String statusString = getIntent().getStringExtra("status");
         int scoreInt = getIntent().getIntExtra("score",0);
@@ -34,12 +37,14 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         String wordString = getIntent().getStringExtra("word");
         if (statusString.equals("won")){
             status.setText(R.string.statusWon);
+            imageView.setImageResource(R.drawable.win);
 
         }else if (statusString.equals("lost")){
             status.setText(R.string.statusLost);
+            imageView.setImageResource(R.drawable.lose);
 
         }else {
-            status.setText(R.string.ErrorAtStatus);
+            status.setText(R.string.ErrorAtStatus); //for error checking
         }
         score.setText("score: " + scoreString);
         word.setText(wordString);

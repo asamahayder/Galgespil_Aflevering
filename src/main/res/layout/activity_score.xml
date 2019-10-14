@@ -28,6 +28,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/dk_crayon_crumble"
             android:text="you won"
+            android:textColor="@color/white"
             android:textSize="80sp" />
 
         <TextView
@@ -35,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dk_crayon_crumble"
+            android:textColor="@color/white"
             android:text="the word was: "
             android:textSize="30sp" />
 
@@ -43,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dk_crayon_crumble"
+            android:textColor="@color/white"
             android:text="XXXXXX"
             android:textSize="50sp" />
 
@@ -52,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/dk_crayon_crumble"
+            android:textColor="@color/white"
             android:text="score:"
             android:textSize="60sp" />
 
