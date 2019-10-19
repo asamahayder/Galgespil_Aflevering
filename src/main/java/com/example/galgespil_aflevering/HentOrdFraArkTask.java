@@ -1,11 +1,8 @@
 package com.example.galgespil_aflevering;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 /*public class HentOrdFraArkTask extends AsyncTask<String, Void, Galgelogik> {
     private String sværhedsgrader;
@@ -65,6 +62,7 @@ public class HentOrdFraArkTask extends AsyncTask<String, String, Exception> {
                 activityRef.get().showErrorMessage();
             } else {
                 activityRef.get().setSynligtOrd();
+                activityRef.get().setButtonsEnabled(true);
             }
         }
     }

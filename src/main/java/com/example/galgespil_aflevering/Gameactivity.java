@@ -59,6 +59,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
             params.setMargins(6,6,6,6);
             button.setPadding(10,10,10,10);
             button.setLayoutParams(params);
+            button.setEnabled(false);
             buttonArrayList.add(button);
 
             switch (i){
@@ -171,6 +172,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
     public void handleGameFinish(){
         if (spil.erSpilletSlut()){
             int score = calculateScore();
+            //setButtonsEnabled(false);
 
             Intent intent = new Intent(this, ScoreActivity.class);
             if (spil.erSpilletVundet()){
@@ -182,7 +184,7 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
             }
 
             intent.putExtra("word",spil.getOrdet());
-
+            finish();
             startActivity(intent);
 
             /*//TODO lav en ordentlig afslutning på spillet
@@ -218,5 +220,11 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
         int antalBogstaver = spil.getOrdet().length();
         int antalLivTilbage = 6-spil.getAntalForkerteBogstaver();
         return 1000*(antalBogstaver+antalLivTilbage);
+    }
+
+    public void setButtonsEnabled(boolean state){
+        for (int i = 0; i < buttonArrayList.size(); i++) {
+            buttonArrayList.get(i).setEnabled(state);
+        }
     }
 }

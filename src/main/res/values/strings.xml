@@ -22,5 +22,8 @@
     <string name="movies">Movies</string>
     <string name="games">Games</string>
     <string name="food">Food</string>
+    <string name="scoreListKey">scoreList</string>
+    <string name="scoreReferenceFileKey">referenceFileKey</string>
+
 
 </resources>
