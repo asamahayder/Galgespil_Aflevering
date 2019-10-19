@@ -24,6 +24,7 @@
     <string name="food">Food</string>
     <string name="scoreListKey">scoreList</string>
     <string name="scoreReferenceFileKey">referenceFileKey</string>
+    <string name="highScores">High Scores</string>
 
 
 </resources>

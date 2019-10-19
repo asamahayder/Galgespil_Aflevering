@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +20,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView movieImage;
     ImageView gameImage;
     ImageView foodImage;
+    Button viewScoreButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         gitHubImage = findViewById(R.id.gitHubImage);
         questionImage = findViewById(R.id.questionImage);
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         movieImage = findViewById(R.id.movieImage);
         gameImage = findViewById(R.id.gameImage);
         foodImage = findViewById(R.id.foodImage);
+        viewScoreButton = findViewById(R.id.viewScoresButton);
 
         gitHubImage.setOnClickListener(this);
         questionImage.setOnClickListener(this);
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         movieImage.setOnClickListener(this);
         gameImage.setOnClickListener(this);
         foodImage.setOnClickListener(this);
+        viewScoreButton.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if (v == questionImage){
             Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }else if (v == viewScoreButton){
+            Intent intent = new Intent(this, ScoreListActivity.class);
             startActivity(intent);
         }
 
