@@ -107,6 +107,7 @@ public class Galgelogik {
       sidsteBogstavVarKorrekt = false;
       System.out.println("Bogstavet var IKKE korrekt: " + bogstav);
       antalForkerteBogstaver = antalForkerteBogstaver + 1;
+      //Der var fejl i denne kode. I starten stod der: "> 6" hvilket betyder at man har 7 liv. Dette kan ikke passe, da vi kun har fået udleveret 6 billeder af manden.
       if (antalForkerteBogstaver == 6) {
         spilletErTabt = true;
       }
@@ -204,6 +205,7 @@ public class Galgelogik {
     nulstil();
   }
 
+  //Ligesom metoden foroven, men denne henter blot fra mit eget regneark.
   public void hentOrdFraEgetRegneark(String sværhedsgrader) throws Exception {
     String id = "1TJDcXzb43c9n-Qb2nxw9PHmKPPV_2R86D7E7ss2lD4g";
 
@@ -229,29 +231,4 @@ public class Galgelogik {
     nulstil();
   }
 
-
-
-  public void hentOrdFraKode(String sværhedsgrad){
-    ArrayList<String> list = new ArrayList<>();
-    if (sværhedsgrad.equals("1")){
-      list.add("hej");
-      list.add("hejsa");
-      list.add("cool");
-      list.add("tak");
-      list.add("far");
-    }else if(sværhedsgrad.equals("2")){
-      list.add("længere");
-      list.add("langt");
-      list.add("farligt");
-      list.add("mærkværdigt");
-      list.add("pause");
-    }else {
-      list.add("konkurrence");
-      list.add("ressourcer");
-      list.add("hestevædeløb");
-      list.add("troværdighed");
-      list.add("ordbogsleksikon");
-    }
-    muligeOrd = list;
-  }
 }

@@ -6,7 +6,7 @@
     <string name="hard_mode">Hard</string>
     <string name="couldNotFetchWord">Could not fetch the word:</string>
     <string name="ErrorAtStatus">No win/lose</string>
-    <string name="ventVenligst">Vent venligst</string>
+    <string name="ventVenligst">please wait</string>
     <string name="statusLost">YOU DIED</string>
     <string name="statusWon">You won!</string>
     <string name="aboutTitle">About</string>

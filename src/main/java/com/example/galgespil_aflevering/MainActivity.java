@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,27 +50,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == animalImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "animals");
             startActivity(intent);
         }else if (v == carImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "cars");
             startActivity(intent);
         }else if (v == countryImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "countries");
             startActivity(intent);
         }else if(v == movieImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "movies");
             startActivity(intent);
         }else if(v == gameImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "games");
             startActivity(intent);
         }else if(v == foodImage){
-            Intent intent = new Intent(this, Gameactivity.class);
+            Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("mode", "foods");
             startActivity(intent);
         }else if (v == gitHubImage){

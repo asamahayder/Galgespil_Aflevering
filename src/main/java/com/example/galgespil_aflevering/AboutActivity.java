@@ -1,7 +1,6 @@
 package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
         returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(this);
-
     }
 
     @Override
@@ -26,4 +24,5 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             finish();
         }
     }
+
 }

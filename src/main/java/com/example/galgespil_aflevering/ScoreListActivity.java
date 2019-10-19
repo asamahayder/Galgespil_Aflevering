@@ -70,10 +70,7 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 scoreListView.addView(textView);
             }
-
-
         }
-
     }
 
     @Override

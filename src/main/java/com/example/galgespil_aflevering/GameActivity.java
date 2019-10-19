@@ -1,7 +1,6 @@
 package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Gameactivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView gameMode;
     TextView synligtOrd;
@@ -186,24 +185,6 @@ public class Gameactivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("word",spil.getOrdet());
             finish();
             startActivity(intent);
-
-            /*//TODO lav en ordentlig afslutning på spillet
-            String ord = spil.getOrdet();
-            synligtOrd.setText("spillet er slut!");
-            AlertDialog.Builder alertdialogBuilder = new AlertDialog.Builder(this);
-            if (spil.erSpilletVundet()){
-                alertdialogBuilder.setMessage("Du har vundet. Ordet var: " + ord);
-            }else{
-                alertdialogBuilder.setMessage("Du har tabt. Ordet var: " + ord);
-            }
-            alertdialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            AlertDialog alertDialog = alertdialogBuilder.create();
-            alertDialog.show();*/
         }
     }
 
