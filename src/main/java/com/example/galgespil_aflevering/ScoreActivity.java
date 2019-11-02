@@ -1,26 +1,25 @@
 package com.example.galgespil_aflevering;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +30,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     Button wiki;
     Button playAgain;
     ImageView imageView;
+    ConstraintLayout scoreConstraintLayout;
 
     int scoreInt;
     int numberOfTries;
@@ -48,7 +48,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         playAgain = findViewById(R.id.playAgainButton);
         imageView = findViewById(R.id.stickmanImage);
         numberOfTriesText = findViewById(R.id.numberOfTriesText);
-
+        scoreConstraintLayout = findViewById(R.id.scoreConstrainLayout);
 
         String statusString = getIntent().getStringExtra("status");
         scoreInt = getIntent().getIntExtra("score",0);
@@ -58,6 +58,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         if (statusString.equals("won")){
             status.setText(R.string.statusWon);
             imageView.setImageResource(R.drawable.win);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.victory_soundeffect);
+            mediaPlayer.start();
 
         }else if (statusString.equals("lost")){
             status.setText(R.string.statusLost);
