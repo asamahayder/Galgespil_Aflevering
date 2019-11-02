@@ -65,6 +65,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
             status.setText(R.string.statusLost);
             imageView.setImageResource(R.drawable.lose);
             numberOfTriesText.setVisibility(View.INVISIBLE);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.defeat_sound_effect);
+            mediaPlayer.start();
 
         }else {
             status.setText(R.string.ErrorAtStatus); //for error checking
