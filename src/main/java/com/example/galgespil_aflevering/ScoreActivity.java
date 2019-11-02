@@ -34,6 +34,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
     int scoreInt;
     int numberOfTries;
+    String statusString;
 
 
     @Override
@@ -50,27 +51,13 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         numberOfTriesText = findViewById(R.id.numberOfTriesText);
         scoreConstraintLayout = findViewById(R.id.scoreConstrainLayout);
 
-        String statusString = getIntent().getStringExtra("status");
+        //Statusstring fås fra gameActivity og den fortæller os om man har vundet eller tabt
+        statusString = getIntent().getStringExtra("status");
         scoreInt = getIntent().getIntExtra("score",0);
         numberOfTries = getIntent().getIntExtra("numberOfTries",0);
         String scoreString = Integer.toString(scoreInt);
         String wordString = getIntent().getStringExtra("word");
-        if (statusString.equals("won")){
-            status.setText(R.string.statusWon);
-            imageView.setImageResource(R.drawable.win);
-            MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.victory_soundeffect);
-            mediaPlayer.start();
 
-        }else if (statusString.equals("lost")){
-            status.setText(R.string.statusLost);
-            imageView.setImageResource(R.drawable.lose);
-            numberOfTriesText.setVisibility(View.INVISIBLE);
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.defeat_sound_effect);
-            mediaPlayer.start();
-
-        }else {
-            status.setText(R.string.ErrorAtStatus); //for error checking
-        }
         score.setText("score: " + scoreString);
         word.setText(wordString);
         numberOfTriesText.setText(numberOfTriesText.getText() + Integer.toString(numberOfTries));
@@ -78,6 +65,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         playAgain.setOnClickListener(this);
         wiki.setOnClickListener(this);
 
+        handleGameOutcome();
         addScoreToList();
         readingScoreFromList();
     }
@@ -95,6 +83,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void addScoreToList(){
+        //
+        //we don't consider 0 as a valid score
         if (scoreInt == 0){
             return;
         }
@@ -103,7 +93,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences preferences = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
         String listInJSON = preferences.getString(scoreListKey,null);
         if (listInJSON == null){
-            //creating list and saving it in preferences
+            //creating a list and saving it in preferences
             JSONArray jsonList = new JSONArray();
             jsonList.put(scoreInt);
             String stringList = jsonList.toString();
@@ -132,5 +122,26 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences preferences = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
         String listInJSON = preferences.getString(scoreListKey,null);
         System.out.println("current list: " + listInJSON);
+    }
+
+    public void handleGameOutcome(){
+        if (statusString.equals("won")){
+            status.setText(R.string.statusWon);
+            imageView.setImageResource(R.drawable.win);
+            //afspiller vinder lyd
+            MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.victory_soundeffect);
+            mediaPlayer.start();
+
+        }else if (statusString.equals("lost")){
+            status.setText(R.string.statusLost);
+            imageView.setImageResource(R.drawable.lose);
+            numberOfTriesText.setVisibility(View.INVISIBLE);
+            //afspiller taber lyd
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.defeat_sound_effect);
+            mediaPlayer.start();
+
+        }else {
+            status.setText(R.string.ErrorAtStatus); //for error checking
+        }
     }
 }
