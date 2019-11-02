@@ -27,11 +27,13 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     TextView status;
     TextView score;
     TextView word;
+    TextView numberOfTriesText;
     Button wiki;
     Button playAgain;
     ImageView imageView;
 
     int scoreInt;
+    int numberOfTries;
 
 
     @Override
@@ -45,9 +47,12 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         wiki = findViewById(R.id.wikipediaButton);
         playAgain = findViewById(R.id.playAgainButton);
         imageView = findViewById(R.id.stickmanImage);
+        numberOfTriesText = findViewById(R.id.numberOfTriesText);
+
 
         String statusString = getIntent().getStringExtra("status");
         scoreInt = getIntent().getIntExtra("score",0);
+        numberOfTries = getIntent().getIntExtra("numberOfTries",0);
         String scoreString = Integer.toString(scoreInt);
         String wordString = getIntent().getStringExtra("word");
         if (statusString.equals("won")){
@@ -57,12 +62,14 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         }else if (statusString.equals("lost")){
             status.setText(R.string.statusLost);
             imageView.setImageResource(R.drawable.lose);
+            numberOfTriesText.setVisibility(View.INVISIBLE);
 
         }else {
             status.setText(R.string.ErrorAtStatus); //for error checking
         }
         score.setText("score: " + scoreString);
         word.setText(wordString);
+        numberOfTriesText.setText(numberOfTriesText.getText() + Integer.toString(numberOfTries));
 
         playAgain.setOnClickListener(this);
         wiki.setOnClickListener(this);

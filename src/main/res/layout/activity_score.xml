@@ -32,10 +32,20 @@
             android:textSize="80sp" />
 
         <TextView
+            android:id="@+id/numberOfTriesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:fontFamily="@font/dk_crayon_crumble"
+            android:text="@string/numberOfTries" />
+
+        <TextView
             android:id="@+id/wordText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dk_crayon_crumble"
+            android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:text="the word was: "
             android:textSize="30sp" />

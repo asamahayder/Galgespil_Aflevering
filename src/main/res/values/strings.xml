@@ -25,6 +25,7 @@
     <string name="scoreListKey">scoreList</string>
     <string name="scoreReferenceFileKey">referenceFileKey</string>
     <string name="highScores">High Scores</string>
+    <string name="numberOfTries">Number of tries: </string>
 
 
 </resources>

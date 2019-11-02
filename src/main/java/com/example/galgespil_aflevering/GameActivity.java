@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
-            button.setTextColor(Color.parseColor("yellow"));
+            button.setTextColor(Color.parseColor("black"));
             button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
@@ -190,6 +190,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             intent.putExtra("word",spil.getOrdet());
+            intent.putExtra("numberOfTries", spil.getAntalForkerteBogstaver()+spil.getOrdet().length());
             finish();
             startActivity(intent);
         }
