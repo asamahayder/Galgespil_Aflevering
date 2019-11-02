@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -22,6 +21,7 @@ import java.util.Collections;
 public class ScoreListActivity extends AppCompatActivity implements View.OnClickListener {
     Button exitbutton;
     LinearLayout scoreListView;
+    ArrayList<Integer> scoreArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +30,14 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
 
         exitbutton = findViewById(R.id.returnButton);
         scoreListView = findViewById(R.id.scoreListView);
+        scoreArrayList = new ArrayList<>();
 
         exitbutton.setOnClickListener(this);
-        fillList();
+        fetchListFromStorage(scoreArrayList);
+        displayList(scoreArrayList);
     }
 
-    public void fillList(){
-        ArrayList<Integer> scoreArrayList = new ArrayList<>();
+    public void fetchListFromStorage(ArrayList<Integer> scoreArrayList){
         String preferenceFileKey = getString(R.string.scoreReferenceFileKey);
         String scoreListKey = getString(R.string.scoreListKey);
         SharedPreferences preferences = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
@@ -53,23 +54,25 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
 
-            //sorting the list in descending order
-            Collections.sort(scoreArrayList);
-            Collections.reverse(scoreArrayList);
+    public void displayList(ArrayList<Integer> scoreArrayList){
+        //sorting the list in descending order
+        Collections.sort(scoreArrayList);
+        Collections.reverse(scoreArrayList);
 
-            for (int i = 0; i < scoreArrayList.size(); i++) {
-                //we don't consider 0 as a valid score
-                if (scoreArrayList.get(i) == 0){
-                    continue;
-                }
-                TextView textView = new TextView(this);
-                textView.setText(scoreArrayList.get(i).toString());
-                textView.setTextColor(Color.parseColor("white"));
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                scoreListView.addView(textView);
+        for (int i = 0; i < scoreArrayList.size(); i++) {
+            //we don't consider 0 as a valid score
+            if (scoreArrayList.get(i) == 0){
+                continue;
             }
+            TextView textView = new TextView(this);
+            textView.setText(scoreArrayList.get(i).toString());
+            textView.setTextColor(Color.parseColor("white"));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            scoreListView.addView(textView);
         }
     }
 

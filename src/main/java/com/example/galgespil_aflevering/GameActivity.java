@@ -41,6 +41,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttonArrayList = new ArrayList<>();
         synligtOrd.setText(R.string.ventVenligst);
 
+        createCustomKeyboard();
+        handleGetWord(mode);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        //Da knapper bliver lavet programmatisk, så kan deres clicklistener ikke blive implementeret her.
+    }
+
+    public void createCustomKeyboard(){
         for (int i = 0; i < 26; i++) {
             final Button button = new Button(this);
             button.setBackgroundResource(R.drawable.rounded_buttons);
@@ -98,8 +109,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 linearLayout3.addView(button);
             }
         }
+    }
 
-
+    public void handleGetWord(String mode){
         gameMode = findViewById(R.id.chosenMode);
 
         if (mode.equals("animals")){
@@ -123,11 +135,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             gameMode.setText(R.string.food);
             new HentOrdFraArkTask(this, spil).execute("foods");
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        //Da knapper bliver lavet programmatisk, så kan deres clicklistener ikke blive implementeret her.
     }
 
     public void handleButtonClick(TextView button){
