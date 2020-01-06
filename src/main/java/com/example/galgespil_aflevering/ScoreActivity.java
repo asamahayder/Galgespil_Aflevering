@@ -1,24 +1,25 @@
 package com.example.galgespil_aflevering;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +36,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     int scoreInt;
     int numberOfTries;
     String statusString;
+    String scoreString;
+    String wordString;
 
 
     @Override
@@ -55,8 +58,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         statusString = getIntent().getStringExtra("status");
         scoreInt = getIntent().getIntExtra("score",0);
         numberOfTries = getIntent().getIntExtra("numberOfTries",0);
-        String scoreString = Integer.toString(scoreInt);
-        String wordString = getIntent().getStringExtra("word");
+        scoreString = Integer.toString(scoreInt);
+        wordString = getIntent().getStringExtra("word");
 
         score.setText("score: " + scoreString);
         word.setText(wordString);
@@ -83,11 +86,17 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void addScoreToList(){
-        //
         //we don't consider 0 as a valid score
         if (scoreInt == 0){
             return;
         }
+
+        //creating result object
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String time = formatter.format(date);
+        ResultObject resultObject = new ResultObject(wordString, time, scoreString);
+
         String preferenceFileKey = getString(R.string.scoreReferenceFileKey);
         String scoreListKey = getString(R.string.scoreListKey);
         SharedPreferences preferences = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
@@ -95,7 +104,12 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         if (listInJSON == null){
             //creating a list and saving it in preferences
             JSONArray jsonList = new JSONArray();
-            jsonList.put(scoreInt);
+
+            //converting object to json
+            Gson gson = new Gson();
+            String objectInJSON = gson.toJson(resultObject);
+
+            jsonList.put(objectInJSON);
             String stringList = jsonList.toString();
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(scoreListKey,stringList);
@@ -109,7 +123,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        jsonArray.put(scoreInt);
+        Gson gson = new Gson();
+        String objectInJSON = gson.toJson(resultObject);
+        jsonArray.put(objectInJSON);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(scoreListKey,jsonArray.toString());
         editor.apply();

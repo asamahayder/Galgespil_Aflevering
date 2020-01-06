@@ -1,16 +1,16 @@
 package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,8 +20,11 @@ import java.util.Collections;
 
 public class ScoreListActivity extends AppCompatActivity implements View.OnClickListener {
     Button exitbutton;
-    LinearLayout scoreListView;
     ArrayList<Integer> scoreArrayList;
+    ArrayList<ResultObject> resultList;
+
+    RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +32,33 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_score_list);
 
         exitbutton = findViewById(R.id.returnButton);
-        scoreListView = findViewById(R.id.scoreListView);
+        recyclerView = findViewById(R.id.recyclerView);
         scoreArrayList = new ArrayList<>();
+        resultList = new ArrayList<>();
 
         exitbutton.setOnClickListener(this);
-        fetchListFromStorage(scoreArrayList);
-        displayList(scoreArrayList);
+        fetchListFromStorage();
+        sortList();
+        displayList();
     }
 
-    public void fetchListFromStorage(ArrayList<Integer> scoreArrayList){
+    public void fetchListFromStorage(){
         String preferenceFileKey = getString(R.string.scoreReferenceFileKey);
         String scoreListKey = getString(R.string.scoreListKey);
         SharedPreferences preferences = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
         String list = preferences.getString(scoreListKey,null);
+
         //hvis listen er null, altså at den ikke findes, så gør vi intet.
         if (list != null){
             JSONArray jsonArray = null;
             try {
                 jsonArray = new JSONArray(list);
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    int score = jsonArray.getInt(i);
-                    scoreArrayList.add(score);
+                    //converting json to java object
+                    Gson gson = new Gson();
+                    String objectInJSON = jsonArray.getString(i);
+                    ResultObject resultObject = gson.fromJson(objectInJSON, ResultObject.class);
+                    resultList.add(resultObject);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -57,23 +66,14 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public void displayList(ArrayList<Integer> scoreArrayList){
-        //sorting the list in descending order
-        Collections.sort(scoreArrayList);
-        Collections.reverse(scoreArrayList);
+    public void sortList(){
+        Collections.sort(resultList);
+    }
 
-        for (int i = 0; i < scoreArrayList.size(); i++) {
-            //we don't consider 0 as a valid score
-            if (scoreArrayList.get(i) == 0){
-                continue;
-            }
-            TextView textView = new TextView(this);
-            textView.setText(scoreArrayList.get(i).toString());
-            textView.setTextColor(Color.parseColor("white"));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            scoreListView.addView(textView);
-        }
+    public void displayList(){
+        ResultListAdapter adapter = new ResultListAdapter(resultList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
