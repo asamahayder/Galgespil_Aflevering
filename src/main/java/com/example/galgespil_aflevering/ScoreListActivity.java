@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ScoreListActivity extends AppCompatActivity implements View.OnClickListener {
-    Button exitbutton;
+    Button exitButton;
     ArrayList<Integer> scoreArrayList;
     ArrayList<ResultObject> resultList;
 
@@ -31,12 +31,12 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_list);
 
-        exitbutton = findViewById(R.id.returnButton);
+        exitButton = findViewById(R.id.returnButton);
         recyclerView = findViewById(R.id.recyclerView);
         scoreArrayList = new ArrayList<>();
         resultList = new ArrayList<>();
 
-        exitbutton.setOnClickListener(this);
+        exitButton.setOnClickListener(this);
         fetchListFromStorage();
         sortList();
         displayList();
@@ -78,7 +78,7 @@ public class ScoreListActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v == exitbutton){
+        if (v == exitButton){
             finish();
         }
     }

@@ -2,12 +2,10 @@ package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -22,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView gameImage;
     ImageView foodImage;
     Button viewScoreButton;
+    Button chooseOwnWordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameImage = findViewById(R.id.gameImage);
         foodImage = findViewById(R.id.foodImage);
         viewScoreButton = findViewById(R.id.viewScoresButton);
+        chooseOwnWordButton = findViewById(R.id.chooseOwnWordButton);
 
         gitHubImage.setOnClickListener(this);
         questionImage.setOnClickListener(this);
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameImage.setOnClickListener(this);
         foodImage.setOnClickListener(this);
         viewScoreButton.setOnClickListener(this);
+        chooseOwnWordButton.setOnClickListener(this);
     }
 
     @Override
@@ -83,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if (v == viewScoreButton){
             Intent intent = new Intent(this, ScoreListActivity.class);
+            startActivity(intent);
+        }else if (v == chooseOwnWordButton){
+            Intent intent = new Intent(this, ChooseOwnWordActivity.class);
             startActivity(intent);
         }
 

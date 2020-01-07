@@ -14,16 +14,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity {
 
     TextView gameMode;
-    TextView synligtOrd;
+    TextView visibleWord;
     ImageView image;
     LinearLayout linearLayout1;
     LinearLayout linearLayout2;
     LinearLayout linearLayout3;
     ArrayList<Button> buttonArrayList;
-    Galgelogik spil;
+    Galgelogik game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +32,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         String mode = intent.getStringExtra("mode");
-        spil = new Galgelogik();
-        synligtOrd = findViewById(R.id.synligtOrd);
+        game = new Galgelogik();
+        visibleWord = findViewById(R.id.synligtOrd);
         image = findViewById(R.id.grafik);
         linearLayout1 = findViewById(R.id.linearLayout1);
         linearLayout2 = findViewById(R.id.linearLayout2);
         linearLayout3 = findViewById(R.id.linearLayout3);
         buttonArrayList = new ArrayList<>();
-        synligtOrd.setText(R.string.ventVenligst);
+        visibleWord.setText(R.string.ventVenligst);
 
         createCustomKeyboard();
         handleGetWord(mode);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        //Da knapper bliver lavet programmatisk, så kan deres clicklistener ikke blive implementeret her.
     }
 
     public void createCustomKeyboard(){
@@ -116,31 +111,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (mode.equals("animals")){
             gameMode.setText(R.string.animals);
-            new HentOrdFraArkTask(this, spil).execute("animals");
+            new GetWordFromWebTask(this, game).execute("animals");
         }else if (mode.equals("cars")){
             gameMode.setText(R.string.cars);
-            new HentOrdFraArkTask(this, spil).execute("cars");
+            new GetWordFromWebTask(this, game).execute("cars");
         }else if(mode.equals("countries")){
             gameMode.setText(R.string.countries);
-            new HentOrdFraArkTask(this, spil).execute("countries");
+            new GetWordFromWebTask(this, game).execute("countries");
         }
         else if(mode.equals("movies")){
             gameMode.setText(R.string.movies);
-            new HentOrdFraArkTask(this, spil).execute("movies");
+            new GetWordFromWebTask(this, game).execute("movies");
         }
         else if(mode.equals("games")){
             gameMode.setText(R.string.games);
-            new HentOrdFraArkTask(this, spil).execute("games");
+            new GetWordFromWebTask(this, game).execute("games");
         }else if(mode.equals("foods")){
             gameMode.setText(R.string.food);
-            new HentOrdFraArkTask(this, spil).execute("foods");
+            new GetWordFromWebTask(this, game).execute("foods");
+        }else{
+            String chosenWord = getIntent().getStringExtra("chosenWord");
+            game.setOrdet(chosenWord);
+            setVisibleWord();
+            setButtonsEnabled(true);
         }
     }
 
     public void handleButtonClick(TextView button){
         String guess = button.getText().toString().toLowerCase();
         handleGuessV2(guess);
-        if (spil.erSidsteBogstavKorrekt()){
+        if (game.erSidsteBogstavKorrekt()){
             button.setBackgroundResource(0);
             button.setTextColor(Color.parseColor("green"));
         }else{
@@ -152,13 +152,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void handleGuessV2(String guess){
-        spil.gætBogstav(guess);
-        synligtOrd.setText(spil.getSynligtOrd());
+        game.gætBogstav(guess);
+        visibleWord.setText(game.getSynligtOrd());
     }
 
     public void handleImageChange(){
-        if (!spil.erSidsteBogstavKorrekt()){
-            switch (spil.getAntalForkerteBogstaver()){
+        if (!game.erSidsteBogstavKorrekt()){
+            switch (game.getAntalForkerteBogstaver()){
                 case 1: image.setImageResource(R.drawable.forkert1);
                     break;
                 case 2: image.setImageResource(R.drawable.forkert2);
@@ -176,12 +176,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void handleGameFinish(){
-        if (spil.erSpilletSlut()){
+        if (game.erSpilletSlut()){
             int score = calculateScore();
-            //setButtonsEnabled(false);
 
             Intent intent = new Intent(this, ScoreActivity.class);
-            if (spil.erSpilletVundet()){
+            if (game.erSpilletVundet()){
                 intent.putExtra("status","won");
                 intent.putExtra("score",score);
             }else{
@@ -189,26 +188,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("score",0);
             }
 
-            intent.putExtra("word",spil.getOrdet());
-            intent.putExtra("numberOfTries", spil.getAntalForkerteBogstaver()+spil.getOrdet().length());
+            intent.putExtra("word", game.getOrdet());
+            intent.putExtra("numberOfTries", game.getAntalForkerteBogstaver()+ game.getOrdet().length());
             finish();
             startActivity(intent);
         }
     }
 
-    //Disse to metoder bliver brugt i forbindelse med HentOrdFraArkTask klassen
-    public void setSynligtOrd(){
-        synligtOrd.setText(spil.getSynligtOrd());
+    //Disse to metoder bliver brugt i forbindelse med GetWordFromWebTask klassen
+    public void setVisibleWord(){
+        visibleWord.setText(game.getSynligtOrd());
     }
 
     public void showErrorMessage(){
-        synligtOrd.setText(R.string.couldNotFetchWord);
+        visibleWord.setText(R.string.couldNotFetchWord);
     }
 
     public int calculateScore(){
-        int antalBogstaver = spil.getOrdet().length();
-        int antalLivTilbage = 6-spil.getAntalForkerteBogstaver();
-        return 1000*(antalBogstaver+antalLivTilbage);
+        int numberOfCharacters = game.getOrdet().length();
+        int numberOfLivesLeft = 6- game.getAntalForkerteBogstaver();
+        return 1000*(numberOfCharacters+numberOfLivesLeft);
     }
 
     public void setButtonsEnabled(boolean state){

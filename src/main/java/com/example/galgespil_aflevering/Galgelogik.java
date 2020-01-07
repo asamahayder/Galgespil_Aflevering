@@ -118,7 +118,7 @@ public class Galgelogik {
   public void logStatus() {
     System.out.println("---------- ");
     System.out.println("- ordet (skult) = " + ordet);
-    System.out.println("- synligtOrd = " + synligtOrd);
+    System.out.println("- visibleWord = " + synligtOrd);
     System.out.println("- forkerteBogstaver = " + antalForkerteBogstaver);
     System.out.println("- brugeBogstaver = " + brugteBogstaver);
     if (spilletErTabt) System.out.println("- SPILLET ER TABT");
@@ -206,7 +206,7 @@ public class Galgelogik {
   }
 
   //Ligesom metoden foroven, men denne henter blot fra mit eget regneark.
-  public void hentOrdFraEgetRegneark(String sværhedsgrader) throws Exception {
+  public void getWordFromWeb(String sværhedsgrader) throws Exception {
     String id = "1TJDcXzb43c9n-Qb2nxw9PHmKPPV_2R86D7E7ss2lD4g";
 
     System.out.println("Henter data som kommasepareret CSV fra regnearket https://docs.google.com/spreadsheets/d/"+id+"/edit?usp=sharing");
@@ -231,4 +231,35 @@ public class Galgelogik {
     nulstil();
   }
 
+  //Her filtrer man blot ikke efter sværhedsgrad og tilføjer derfor alle ord. Bruges når man selv skal vælge et ord fra en liste.
+  public void getAllWordsFromWeb() throws Exception {
+    String id = "1TJDcXzb43c9n-Qb2nxw9PHmKPPV_2R86D7E7ss2lD4g";
+
+    System.out.println("Henter data som kommasepareret CSV fra regnearket https://docs.google.com/spreadsheets/d/"+id+"/edit?usp=sharing");
+
+    String data = hentUrl("https://docs.google.com/spreadsheets/d/" + id + "/export?format=csv&id=" + id);
+    int linjeNr = 0;
+
+    muligeOrd.clear();
+    for (String linje : data.split("\n")) {
+      if (linjeNr<20) System.out.println("linje = " + linje); // udskriv de første 20 linjer
+      if (linjeNr++ < 1 ) continue; // Spring første linje med kolonnenavnene over
+      String[] felter = linje.split(",", -1);// -1 er for at beholde tomme indgange, f.eks. bliver ",,," splittet i et array med 4 tomme strenge
+      String sværhedsgrad = felter[0].trim();
+      String ordet = felter[1].trim().toLowerCase();
+      if (ordet.isEmpty()) continue; // spring over linjer med tomme ord
+      if (sværhedsgrad.isEmpty()) continue;
+      muligeOrd.add(ordet);
+    }
+
+    System.out.println("muligeOrd = " + muligeOrd);
+    nulstil();
+  }
+
+  //bruges sammen med vælg-ord funktionaliteten
+  public void setOrdet(String ordet) {
+    muligeOrd.clear();
+    muligeOrd.add(ordet);
+    nulstil();
+  }
 }

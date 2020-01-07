@@ -26,6 +26,9 @@
     <string name="scoreReferenceFileKey">referenceFileKey</string>
     <string name="highScores">High Scores</string>
     <string name="numberOfTries">Number of tries: </string>
+    <string name="chooseOwnWord">Choose word from list</string>
+    <string name="chooseWord">Choose Word</string>
+    <string name="somethingWentWrong">Something went wrong</string>
 
 
 </resources>

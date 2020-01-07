@@ -2,6 +2,10 @@ package com.example.galgespil_aflevering;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +13,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +60,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         numberOfTriesText = findViewById(R.id.numberOfTriesText);
         scoreConstraintLayout = findViewById(R.id.scoreConstrainLayout);
 
-        //Statusstring fås fra gameActivity og den fortæller os om man har vundet eller tabt
+        //StatusString fås fra gameActivity og den fortæller os om man har vundet eller tabt
         statusString = getIntent().getStringExtra("status");
         scoreInt = getIntent().getIntExtra("score",0);
         numberOfTries = getIntent().getIntExtra("numberOfTries",0);
@@ -62,6 +68,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         wordString = getIntent().getStringExtra("word");
 
         score.setText("score: " + scoreString);
+        handleScoreAnimation();
         word.setText(wordString);
         numberOfTriesText.setText(numberOfTriesText.getText() + Integer.toString(numberOfTries));
 
@@ -159,5 +166,16 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         }else {
             status.setText(R.string.ErrorAtStatus); //for error checking
         }
+    }
+
+    public void handleScoreAnimation(){
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(score,
+                PropertyValuesHolder.ofFloat("scaleX", 1.5f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.5f));
+        scaleDown.setDuration(1000);
+        scaleDown.setInterpolator(new DecelerateInterpolator());
+        scaleDown.setRepeatCount(Animation.INFINITE);
+        scaleDown.setRepeatMode(ValueAnimator.REVERSE);
+        scaleDown.start();
     }
 }
